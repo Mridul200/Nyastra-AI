@@ -22,7 +22,6 @@ services:
   - type: web
     name: nyastra-frontend
     runtime: static
-    plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
