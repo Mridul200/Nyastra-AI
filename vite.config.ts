@@ -11,6 +11,10 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
+  preview: {
+    host: "0.0.0.0",
+    port: parseInt(process.env.PORT || "8080"),
+  },
   plugins: [react()],
   resolve: {
     alias: {
