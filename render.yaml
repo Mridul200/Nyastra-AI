@@ -1,0 +1,38 @@
+services:
+  # Backend FastAPI Service
+  - type: web
+    name: nyastra-backend
+    runtime: python
+    plan: free
+    buildCommand: cd server && pip install -r requirements.txt
+    startCommand: cd server && gunicorn main:app -w 2 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: INDIAN_KANOON_API_KEY
+        sync: false
+      - key: PYTHONPATH
+        value: /opt/render/project/src/server
+
+  # Frontend Vite Static Site
+  - type: static_site
+    name: nyastra-frontend
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: nyastra-backend
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: VITE_GEMINI_API_KEY
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
