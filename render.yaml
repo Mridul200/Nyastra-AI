@@ -19,9 +19,8 @@ services:
         value: /opt/render/project/src/server
 
   # Frontend Vite Static Site
-  - type: web
+  - type: static
     name: nyastra-frontend
-    runtime: static
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
