@@ -16,24 +16,42 @@ export type Database = {
     Tables: {
       profiles: {
         Row: {
-          created_at: string
-          email: string | null
-          full_name: string | null
           id: string
+          full_name: string | null
+          email: string | null
+          phone_number: string | null
+          court_name: string | null
+          specialization: string | null
+          location: string | null
+          bar_council_id: string | null
+          avatar_url: string | null
+          created_at: string
           updated_at: string
         }
         Insert: {
-          created_at?: string
-          email?: string | null
-          full_name?: string | null
           id: string
+          full_name?: string | null
+          email?: string | null
+          phone_number?: string | null
+          court_name?: string | null
+          specialization?: string | null
+          location?: string | null
+          bar_council_id?: string | null
+          avatar_url?: string | null
+          created_at?: string
           updated_at?: string
         }
         Update: {
-          created_at?: string
-          email?: string | null
-          full_name?: string | null
           id?: string
+          full_name?: string | null
+          email?: string | null
+          phone_number?: string | null
+          court_name?: string | null
+          specialization?: string | null
+          location?: string | null
+          bar_council_id?: string | null
+          avatar_url?: string | null
+          created_at?: string
           updated_at?: string
         }
         Relationships: []
