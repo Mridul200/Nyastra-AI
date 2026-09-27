@@ -21,10 +21,11 @@ class IndianKanoonFetcher:
         params = {"formInput": query, "pagenum": p}
         
         async with httpx.AsyncClient() as client:
-            response = await client.get(f"{self.base_url}/search/", headers=headers, params=params)
+            response = await client.post(f"{self.base_url}/search/", headers=headers, params=params)
             if response.status_code == 200:
                 data = response.json()
-                return data.get("results", [])
+                # Indian Kanoon search results are under 'docs' or 'results'
+                return data.get("docs", []) or data.get("results", [])
             else:
                 return []
 
@@ -35,7 +36,7 @@ class IndianKanoonFetcher:
             
         headers = {"Authorization": f"Token {self.api_token}"}
         async with httpx.AsyncClient() as client:
-            response = await client.get(f"{self.base_url}/doc/{tid}/", headers=headers)
+            response = await client.post(f"{self.base_url}/doc/{tid}/", headers=headers)
             if response.status_code == 200:
                 data = response.json()
                 return data.get("doc", "")

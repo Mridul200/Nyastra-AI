@@ -85,7 +85,7 @@ Respond ONLY with a valid JSON object matching this exact schema (no markdown, n
     const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
     if (GEMINI_API_KEY) {
       try {
-        const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
+        const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent";
         const resp = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },

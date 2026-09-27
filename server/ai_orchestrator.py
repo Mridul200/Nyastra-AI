@@ -62,8 +62,8 @@ class LlmOrchestrator:
             try:
                 import google.generativeai as genai
                 genai.configure(api_key=gemini_key)
-                self._clients["gemini"] = genai.GenerativeModel("gemini-1.5-flash")
-                print("LLM: Gemini client initialized.")
+                self._clients["gemini"] = genai.GenerativeModel("gemini-3.8-flash")
+                print("LLM: Gemini client initialized with gemini-3.8-flash.")
             except Exception as e:
                 print(f"LLM: Gemini init failed: {e}")
 
@@ -135,17 +135,26 @@ class LlmOrchestrator:
         if not client:
             raise ValueError("Groq not configured.")
         
-        # Groq Llama 3.3 doesn't support vision via base64 in standard way yet
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.2,
-            max_tokens=4096,
-        )
-        return response.choices[0].message.content
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt}
+        ]
+        
+        models_to_try = ["llama-3.1-8b-instant", "llama-3.3-70b-versatile", "mixtral-8x7b-32768"]
+        last_error = None
+        for model in models_to_try:
+            try:
+                response = client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    temperature=0.2,
+                    max_tokens=4096,
+                )
+                return response.choices[0].message.content
+            except Exception as e:
+                last_error = e
+                continue
+        raise last_error
 
     async def chat_gemini(self, prompt: str, system_prompt: str = NYASTRA_SYSTEM_PROMPT, attachment_base64: str = None) -> str:
         client = self._clients.get("gemini")
