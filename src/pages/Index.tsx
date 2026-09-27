@@ -3,8 +3,9 @@ import { Search, Upload, MessageSquare, FileText, ArrowRight, Scale, Zap, Shield
 import { Button } from "@/components/ui/button";
 import { HeroGeometric } from "@/components/ui/shape-landing-hero";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { TestimonialsSection } from "@/components/ui/testimonials-with-marquee";
+// import { TestimonialsSection } from "@/components/ui/testimonials-with-marquee";
 
+/*
 const testimonials = [
   {
     author: {
@@ -39,6 +40,7 @@ const testimonials = [
     text: "Finally, a technology that understands the nuances of Indian Law. A must-have for every modern advocate.",
   }
 ];
+*/
 
 const features = [
   {
@@ -146,11 +148,13 @@ export default function Index() {
         </div>
       </ContainerScroll>
 
+      {/* Testimonials section hidden for now — re-enable when real testimonials are available
       <TestimonialsSection
         title="Trusted by India's Top Advocates"
         description="Join leading advocates and law firms who are already leveraging Nyastra AI to win cases."
         testimonials={testimonials}
       />
+      */}
     </div>
   );
 }
