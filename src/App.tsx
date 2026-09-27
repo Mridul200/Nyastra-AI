@@ -14,6 +14,9 @@ import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
 import UserDashboard from "./pages/UserDashboard";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import ContactUs from "./pages/ContactUs";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +37,9 @@ const App = () => (
               <Route path="/documents" element={<DocumentGenerator />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/contact" element={<ContactUs />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
