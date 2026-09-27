@@ -79,14 +79,26 @@ export default function UserDashboard() {
           if (data) {
             const profileData = data as any;
             setProfile({
-              full_name: profileData.full_name || "",
+              full_name: profileData.full_name || user.user_metadata?.full_name || user.user_metadata?.name || "",
               email: profileData.email || user.email || "",
               phone_number: profileData.phone_number || "",
               court_name: profileData.court_name || "",
               specialization: profileData.specialization || "",
               location: profileData.location || "",
               bar_council_id: profileData.bar_council_id || "",
-              avatar_url: profileData.avatar_url || ""
+              avatar_url: profileData.avatar_url || user.user_metadata?.avatar_url || user.user_metadata?.picture || ""
+            });
+          } else {
+            // New OAuth user profile fallback
+            setProfile({
+              full_name: user.user_metadata?.full_name || user.user_metadata?.name || "",
+              email: user.email || "",
+              phone_number: "",
+              court_name: "",
+              specialization: "",
+              location: "",
+              bar_council_id: "",
+              avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || ""
             });
           }
         };
